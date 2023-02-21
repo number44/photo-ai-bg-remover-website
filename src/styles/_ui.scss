@@ -1,0 +1,14 @@
+.btn {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  color: white;
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  font-size: 1.2rem;
+  padding: 1rem 6.5rem;
+  border-radius: 0.2rem;
+  text-transform: uppercase;
+  background: linear-gradient(var(--primary), var(--primary-dark));
+  cursor: pointer;
+}
