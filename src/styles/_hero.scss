@@ -13,15 +13,25 @@
     flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    @media (min-width: 30em) {
-      /* … */
-      grid-template-columns: repeat(2, 1fr);
-    }
 
     gap: 5rem;
     padding-top: 10rem;
     text-align: center;
-    @media (min-width: 30em) {
+    h1 {
+      position: relative;
+      margin-bottom: 2rem;
+      &::after {
+        height: 0.2rem;
+        width: 30%;
+        content: "";
+        position: absolute;
+        bottom: -1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--secondary);
+      }
+    }
+    @media (min-width: 60em) {
       /* … */
       padding-top: 17rem;
       grid-template-columns: repeat(2, 1fr);
@@ -96,9 +106,6 @@
   }
 }
 
-.img-thumb {
-}
-
 .numbers {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -117,4 +124,9 @@
       font-size: 3rem;
     }
   }
+}
+
+button {
+  outline: none;
+  border: inherit;
 }

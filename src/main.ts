@@ -1,11 +1,8 @@
-import { createApp } from "vue";
-import App from "./App.vue";
 import anime from "animejs";
-createApp(App).mount("#app");
 import "./styles.scss";
-
+const goToDpcument = document.querySelector(".go-to") as HTMLDivElement;
 const header = document.querySelector("header") as HTMLElement;
-
+const progressBar = document.querySelector(".progress-bar") as HTMLElement;
 import Lenis from "@studio-freight/lenis";
 
 const lenis = new Lenis({
@@ -21,7 +18,6 @@ const lenis = new Lenis({
 });
 
 //get scroll value
-
 lenis.on("scroll", ({ scroll, limit, velocity, direction, progress }: any) => {
   console.log({ scroll, limit, velocity, direction, progress });
   console.log("progress", progress);
@@ -33,6 +29,14 @@ lenis.on("scroll", ({ scroll, limit, velocity, direction, progress }: any) => {
   } else {
     header.classList.remove("scrolled");
   }
+  if (scroll > 150 && goToDpcument) {
+    goToDpcument.classList.add("show-go-to");
+  } else {
+    goToDpcument.classList.remove("show-go-to");
+  }
+  if (progressBar) {
+    progressBar.style.width = `${progress * 100}%`;
+  }
 });
 
 function raf(time: any) {
@@ -41,7 +45,6 @@ function raf(time: any) {
 }
 
 requestAnimationFrame(raf);
-
 const preloader = document.querySelector("#preloader") as HTMLElement;
 const img2 = document.querySelector(".img2") as HTMLElement;
 window.onload = function () {
@@ -50,13 +53,14 @@ window.onload = function () {
   preloader.style.display = "none";
   if (!img2) return;
   img2.classList.add("showed");
+  // register Swiper custom elements
 };
 
-var images = document.querySelectorAll(".img-thumb");
-var timeline = anime.timeline();
+const images = document.querySelectorAll(".img-thumb");
+const timeline = anime.timeline();
 
 // define the animation properties
-var animationProperties = {
+const animationProperties = {
   scale: [0, 1],
   easing: "easeOutQuad",
   duration: 1000,
@@ -69,6 +73,16 @@ timeline.add({
   delay: anime.stagger(600),
 });
 
-import { register } from "swiper/element/bundle";
-// register Swiper custom elements
-register();
+const btnPrimary = document.querySelectorAll(".btn-primary");
+btnPrimary.forEach((btn) => {
+  btn?.addEventListener("click", () => {
+    lenis.scrollTo(".documents", {
+      offset: 0,
+      duration: 5,
+      easing: (x) => {
+        return x * 10;
+      },
+      immediate: false,
+    });
+  });
+});
