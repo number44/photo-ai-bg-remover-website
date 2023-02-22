@@ -1,7 +1,16 @@
 #how-to {
   text-align: center;
   padding-block: 4rem;
-  .container {
+  .how-to-container {
+    margin-bottom: 2rem;
+  }
+  .how-to-info {
+    margin-bottom: 2rem;
+    strong {
+      font-weight: 600;
+    }
+  }
+  .how-to-container {
     display: grid;
 
     grid-template-columns: repeat(1, 1fr);
@@ -32,6 +41,7 @@
       align-items: center;
       padding-block: 3rem;
       .icon {
+        align-self: center;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -40,7 +50,7 @@
         &::before {
           z-index: 1;
           box-shadow: 0 0 13px #434343;
-          opacity: 0.5;
+          border: solid #0f0f0f 5px;
           border-radius: 50%;
           content: "";
           position: absolute;
@@ -49,12 +59,15 @@
           top: 50%;
           width: 7rem;
           height: 7rem;
-
+          z-index: 1;
           background: var(--primary);
         }
       }
       svg {
+        z-index: 11;
+
         width: 4rem;
+        stroke: white;
       }
     }
   }
