@@ -1,50 +1,34 @@
 import anime from "animejs";
 import "./styles.scss";
 const goToDpcument = document.querySelector(".go-to") as HTMLDivElement;
-const header = document.querySelector("header") as HTMLElement;
+const headerElement = document.querySelector("header") as HTMLElement;
 const progressBar = document.querySelector(".progress-bar") as HTMLElement;
-import Lenis from "@studio-freight/lenis";
 
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
-  direction: "vertical", // vertical, horizontal
-  gestureDirection: "vertical", // vertical, horizontal, both
-  smooth: true,
-  mouseMultiplier: 1,
-  smoothTouch: false,
-  touchMultiplier: 2,
-  infinite: false,
-});
+import detectScroll from "./utils/scrolling";
 
-//get scroll value
-lenis.on("scroll", ({ scroll, limit, velocity, direction, progress }: any) => {
-  console.log({ scroll, limit, velocity, direction, progress });
-  console.log("progress", progress);
-  console.log("scroll", scroll);
-  console.log("velocity", velocity);
-
-  if (scroll > 150 && header) {
-    header.classList.add("scrolled");
+function scrolling(sp: number) {
+  const height =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  const scrolled = (sp / height) * 100;
+  progressBar.style.width = scrolled + "%";
+  if (scrolled > 5) {
+    if (headerElement) {
+      headerElement.classList.add("scrolled");
+    }
   } else {
-    header.classList.remove("scrolled");
+    headerElement.classList.remove("scrolled");
   }
-  if (scroll > 150 && goToDpcument) {
+  if (scrolled > 5 && goToDpcument) {
     goToDpcument.classList.add("show-go-to");
   } else {
     goToDpcument.classList.remove("show-go-to");
   }
-  if (progressBar) {
-    progressBar.style.width = `${progress * 100}%`;
-  }
-});
-
-function raf(time: any) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
 }
+detectScroll(scrolling, 40);
 
-requestAnimationFrame(raf);
+//get scroll value
+
 const preloader = document.querySelector("#preloader") as HTMLElement;
 const img2 = document.querySelector(".img2") as HTMLElement;
 window.onload = function () {
@@ -74,18 +58,7 @@ timeline.add({
 });
 
 const btnPrimary = document.querySelectorAll(".btn-primary");
-btnPrimary.forEach((btn) => {
-  btn?.addEventListener("click", () => {
-    lenis.scrollTo(".documents", {
-      offset: 0,
-      duration: 5,
-      easing: (x) => {
-        return x * 10;
-      },
-      immediate: false,
-    });
-  });
-});
+btnPrimary.forEach((btn) => {});
 const acc = document.getElementsByClassName(
   "accordion"
 ) as HTMLCollectionOf<HTMLElement>;

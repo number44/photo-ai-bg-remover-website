@@ -1,5 +1,6 @@
 .go-to {
   position: fixed;
+  z-index: 999;
   bottom: 0;
   width: 100%;
   display: flex;
@@ -12,6 +13,9 @@
   transition: transform ease-in-out 0.3s;
   .btn {
     margin: 0;
+    @media (max-width: 30rem) {
+      text-align: center;
+    }
   }
 }
 .show-go-to {
